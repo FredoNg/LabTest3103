@@ -1,28 +1,15 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:lts-buster-slim' 
+            args '-p 3000:3000' 
+        }
+    }
     stages {
-		stage('test') {
-		    agent {
-		        docker {
-		            image 'python:3.9.7-alpine3.13'
-		        }
-		    }
+        stage('Build') { 
             steps {
-				sh 'python3 -m pip install -r web/unitrequirements.txt'
-				sh 'python unit_test.py'
+                sh 'npm install' 
             }
         }
-
-    stage ("OWASP Dependency Check"){
-		steps{
-			dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'Default'
-		}
-
-	}
     }
-	post{
-		success{
-			dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-		}
-	}
 }
