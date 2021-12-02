@@ -1,14 +1,14 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:lts-buster-slim' 
-            args '-p 3000:3000' 
-        }
-    }
+    agent { docker { image 'python:3.7.2' } }
     stages {
-        stage('Build') { 
+        stage('build') {
             steps {
-                sh 'npm install' 
+                sh 'pip install flask
+            }
+        }
+        stage('test') {
+            steps {
+                sh 'python test_feature.py'
             }
         }
     }
