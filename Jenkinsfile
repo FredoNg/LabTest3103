@@ -3,9 +3,8 @@ pipeline {
     stages {
         stage('build') {
             steps {
-				sh 'sudo chmod 777 /usr/local/bin/pip'
-                sh 'pip install --upgrade pip'
-                sh 'pip install flask'
+                sh 'sudo pip install --upgrade pip'
+                sh 'sudo pip install flask'
             }
         }
         stage('test') {
