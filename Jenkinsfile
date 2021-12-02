@@ -2,9 +2,10 @@ pipeline {
     agent { docker { image 'python:3.7.2' } }
     stages {
         stage('build') {
-             steps {
-                  sh 'virtualenv venv && . venv/bin/activate && pip install -r requirements.txt && python test_feature.py'
-             }
+            steps {
+                sh 'python3 -m pip install -r requirement.txt'
+                sh 'pip install flask'
+            }
         }
         stage('test') {
             steps {
